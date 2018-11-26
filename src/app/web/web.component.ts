@@ -33,29 +33,38 @@ export class WebComponent implements OnInit {
 		
 			let message  = {
 					name: form.value.name,
- 					email: form.value.email,
- 					phone: "Not Shared",
-					message: form.value.message	
+ 					client: form.value.email,
+					html: form.value.message	
 			}
 			
 			
 			
 			
-	 this.http.post('https://url222-url.firebaseio.com/response.json',message).subscribe((response)=>{
-					
+		this.http.post('https://restend-restend.firebaseapp.com/admin/endp/sendpersonal',message).subscribe((response)=>{
+						
+						this.isWait = false;
+						
+						this.openSnackBar();
+
+						
+						form.reset();
+
+						this.http.post('https://restend-restend.firebaseapp.com/admin/endp/sendclient',message).subscribe((response)=>{
+						
+							
+							
+						}, (error)=>{
+									
+						})
+
+						form.reset();
+						
+		}, (error)=>{
 					this.isWait = false;
 					
-					this.openSnackBar();
-
 					
-					form.reset();
-					
-	 }, (error)=>{
-				this.isWait = false;
-				
-				
-				this.openSnackBar2();
-		 })
+					this.openSnackBar2();
+			})
 	
 		 
 		
